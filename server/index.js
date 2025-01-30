@@ -1,8 +1,26 @@
 const express = require(`express`);
 const app = express();
+const ejs = require(`ejs`);
+const mongoose = require(`mongoose`);
+const path = require(`path`);
 const PORT = 3000;
 
 // console.log(express);
+
+(async function () {
+  try {
+    await mongoose.connect(`mongodb://127.0.0.1:27017/zomato`);
+    console.log(`Database connected successfully!!!`);
+  } catch (error) {
+    console.log(error.message);
+  }
+})();
+
+// mongoose.connect(`mongodb://127.0.0.1:27017/zomato`);
+
+const User = require(`./Schemas/userSchema.js`)
+
+app.use(express.urlencoded({ extended: true }));
 
 app.get(`/`, (req, res) => {
   res.send(`<h1>Server is working</h1>`);
@@ -20,6 +38,22 @@ app.get(`/query`, (req, res) => {
   res.send(
     `<h1>My name is ${req.query.name} and I'm from ${req.query.place} and I'm ${req.query.age}</h1>`
   );
+});
+
+app.get(`/formPath`, (req, res) => {
+  res.sendFile(path.resolve(__dirname, `views`, `index.html`));
+});
+
+app.post(`/formPath`, (req, res) => {
+  console.log(req.body);
+  const {name, email, password} = req.body;
+  const newUser = new User;
+  // const newUser = User
+});
+
+app.use((req, res) => {
+  // res.send(`<h1>This is global middleware handler</h1>`);
+  res.sendFile(`errorPage.html`);
 });
 
 app.listen(PORT, () => {
