@@ -18,9 +18,10 @@ const PORT = 3000;
 
 // mongoose.connect(`mongodb://127.0.0.1:27017/zomato`);
 
-const User = require(`./Schemas/userSchema.js`)
+const User = require(`./Schemas/userSchema.js`);
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.resolve(__dirname, `views`)));
 
 app.get(`/`, (req, res) => {
   res.send(`<h1>Server is working</h1>`);
@@ -44,10 +45,13 @@ app.get(`/formPath`, (req, res) => {
   res.sendFile(path.resolve(__dirname, `views`, `index.html`));
 });
 
-app.post(`/formPath`, (req, res) => {
+app.post(`/formPath`, async (req, res) => {
+  // console.log(req.body);
   console.log(req.body);
-  const {name, email, password} = req.body;
-  const newUser = new User;
+  const { name, email, password } = req.body;
+  const newUser = await User.create({ name, email, password });
+  res.render(`singleUser.ejs`, { newUser });
+  // console.log(newUser);
   // const newUser = User
 });
 
