@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlipZon</title>
+  </head>
+  <body>
+    <header>
+      <button><a href="/newProduct">+ Add New Product</a></button>
+    </header>
+    <main>
+      <ul>
+        <% allProducts.forEach(product => { %>
+        <br />
+        <li>
+          <a href="/<%= product._id %>">
+            <h5><%= product.name %></h5>
+            <h6><%= product.price %></h6>
+            <p><%= product.description %></p>
+          </a>
+        </li>
+        <br />
+        <% }) %>
+      </ul>
+    </main>
+  </body>
+</html>
