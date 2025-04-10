@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlipZon</title>
+  </head>
+  <body>
+    <header>
+      <!-- success message -->
+      <% if (success) { %>
+      <h1><%= success %></h1>
+      <% } %>
+      <!-- Error message -->
+      <% if (error) { %>
+      <h1><%= error %></h1>
+      <% } %> <% if (!currentUser) { %>
+      <button><a href="/user/new"> Sign up user</a></button>
+      <button><a href="/signin">Sign In User</a></button>
+      <% } else { %>
+      <button><a href="/logout">Logout <%= currentUser.name %></a></button>
+      <% } %> <% if (currentUser) { %>
+      <button><a href="/products/newProduct">+ Add New Product</a></button>
+      <% } %>
+    </header>
+    <main>
+      <ul>
+        <% allProducts.forEach(product => { %>
+        <br />
+        <li>
+          <a href="/<%= product._id %>">
+            <h5><%= product.name %></h5>
+            <h6><%= product.price %></h6>
+            <p><%= product.description %></p>
+          </a>
+        </li>
+        <br />
+        <% }) %>
+      </ul>
+    </main>
+  </body>
+</html>
