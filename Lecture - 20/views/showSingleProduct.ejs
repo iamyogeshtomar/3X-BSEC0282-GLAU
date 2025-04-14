@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button><a href="/">Homepage</a></button>
+    <br />
+    <br />
+    <br />
+    <h1><%= singleProduct.name %></h1>
+    <h2><%= singleProduct.price %></h2>
+    <p><%= singleProduct.description %></p>
+    <button>
+      <a href="/<%= singleProduct._id%>/edit">Edit this product</a>
+    </button>
+    <form action="/<%= singleProduct._id %>?_method=DELETE" method="post">
+      <button type="submit">Delete this product</button>
+    </form>
+    <br />
+    <br />
+    <br />
+    <form action="/products/<%= singleProduct._id %>/review" method="post">
+      <div>
+        <label for="rating">Rating</label><br />
+        <input type="range" min="1" max="5" name="rating" value="1" /><br />
+      </div>
+      <br />
+      <div>
+        <label for="comment">Comment</label><br />
+        <textarea name="comment" placeholder="Enter your review"></textarea
+        ><br />
+      </div>
+      <br />
+      <button type="submit">Enter your review</button>
+    </form>
+  </body>
+</html>
